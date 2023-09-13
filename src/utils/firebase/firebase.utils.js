@@ -1,11 +1,12 @@
 import { initializeApp } from 'firebase/app';
+// Import Firebase auth methods
 import {
   getAuth,
   signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider
 } from 'firebase/auth';
-
+// Import Firestore auth methods
 import {
   getFirestore,
   doc,
@@ -26,6 +27,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
+// Provider is instatiated as a class; you can use any provider
 const provider = new GoogleAuthProvider();
 
 // Google Sign In parameters according to their documentation
@@ -35,6 +37,7 @@ provider.getCustomParameters({
 
 export const auth = getAuth(); // Doesn't receive parameters as only one auth is required
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider); // can be used with multiple providers (Google, Facebook, Github, etc...)
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth, provider)
 
 // Instantiate the database to interact with Firestore
 export const db = getFirestore();
