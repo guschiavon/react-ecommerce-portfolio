@@ -8,6 +8,8 @@ import {
   createUserDocumentFromAuth
 } from '../../utils/firebase/firebase.utils'
 
+import SignUpForm from '../../components/sign-up-form/sign-up-form.component';
+
 const SignIn = () => {
   // for the redirect flow, we use useEffect() and invoke a promise in order to get the auth token resulting from the redirect flow; useEffect() runs on the app remount stage and only once due to the empty array 
   useEffect(() => {
@@ -29,6 +31,7 @@ const SignIn = () => {
     <div>     
       <button onClick={logGoogleUser}>Google Sign In</button>
       <button onClick={signInWithGoogleRedirect}>Sign In With Redirect</button>
+      <SignUpForm />
     </div>
   )
 }

@@ -2,10 +2,12 @@ import { initializeApp } from 'firebase/app';
 // Import Firebase auth methods
 import {
   getAuth,
+  createUserWithEmailAndPassword,
   signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider
 } from 'firebase/auth';
+
 // Import Firestore auth methods
 import {
   getFirestore,
@@ -49,7 +51,8 @@ export const db = getFirestore();
 // 2. the collection where the document must be created
 // 3. the document unique identifier (in this case the UID but could also be email, name, etc...)
 
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
+  if (!userAuth) return;
   // create a user document reference
   const userDocRef = doc(db, 'users', userAuth.uid);
   // create a user snapshot to validate if exists already or not
@@ -67,7 +70,8 @@ export const createUserDocumentFromAuth = async (userAuth) => {
       await setDoc(userDocRef, { 
         displayName,
         email,
-        createAt
+        createAt,
+        ...additionalInfo
       })
     } catch (error) {
       console.log('error creating user', error.message);
@@ -75,4 +79,10 @@ export const createUserDocumentFromAuth = async (userAuth) => {
   }
   // if user exists, return the user doc reference
   return userDocRef;  
+}
+
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+
+  return await createUserWithEmailAndPassword(auth, email, password);
 }
