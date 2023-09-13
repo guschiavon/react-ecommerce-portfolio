@@ -3,7 +3,8 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth
  } from "../../utils/firebase/firebase.utils";
-
+import FormInput from "../form-input/form-input.component";
+//  Set the default state of the input fields
 const defaultFormFields = {
   displayName: '',
   email: '',
@@ -55,25 +56,11 @@ const SignUpForm = () => {
   return (
     <div>
       <h2>Sign Up with Email and Password</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Display Name</label>
-        <input
-          required
-          type="text"
-          name='displayName'
-          value={displayName}
-          onChange={handleInputChange}
-        />
-
-        <label>Email</label>
-        <input type="email" required name='email' value={email} onChange={handleInputChange}/>
-
-        <label>Password</label>
-        <input type="password" required name='password' value={password} onChange={handleInputChange}/>
-
-        <label>Confirm Password</label>
-        <input type="password" required name='confirmPassword' value={confirmPassword} onChange={handleInputChange}/>
-
+      <form onSubmit={handleSubmit}>        
+        <FormInput required label='Display Name' type="text" name='displayName' value={displayName} onChange={handleInputChange} />       
+        <FormInput required label='Email' type="email" name='email' value={email} onChange={handleInputChange} />       
+        <FormInput required label='Password' type="password" name='password' value={password} onChange={handleInputChange} />
+        <FormInput required label='Confirm Password' type="password" name='confirmPassword' value={confirmPassword} onChange={handleInputChange} />
         <button type="submit">Create Account</button>
       </form>
     </div>
