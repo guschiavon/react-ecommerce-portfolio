@@ -24,10 +24,7 @@ const SignIn = () => {
     const { user } = await signInWithGooglePopup(); // abstract the user object as it is all we need  
     const userDocRef = await createUserDocumentFromAuth(user) // Async method from firebase.utils to create new user record upon auth
   }
-  const logGoogleRedirectUser = async () => {
-    const { user } = await signInWithGoogleRedirect();
-    console.log({user});
-  }
+ 
   return (
     <div>     
       <button onClick={logGoogleUser}>Google Sign In</button>
