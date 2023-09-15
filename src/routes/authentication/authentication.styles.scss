@@ -1,0 +1,10 @@
+.sign-in-container {
+  width: 800px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+  * {
+    flex: 1 1 auto;
+  }
+}
