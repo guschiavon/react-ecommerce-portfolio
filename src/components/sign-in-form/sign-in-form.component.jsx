@@ -27,8 +27,7 @@ const SignInForm = () => {
    // method to make request to Google for accessToken
   const logGoogleUser = async () => {
     try {
-      const { user } = await signInWithGooglePopup(); // abstract the user object as it is all we need  
-      await createUserDocumentFromAuth(user) // Async method from firebase.utils to create new user record upon auth
+      await signInWithGooglePopup();       
     } catch(err) {
       return
     }
