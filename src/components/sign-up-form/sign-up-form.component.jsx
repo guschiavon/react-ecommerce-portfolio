@@ -3,6 +3,7 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth
  } from "../../utils/firebase/firebase.utils";
+
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 //  Set the default state of the input fields
@@ -16,10 +17,11 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
-  
+    
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   }
+
   const handleSubmit = async (event) => {
     event.preventDefault();    
     // check if passwords are equal
@@ -30,6 +32,7 @@ const SignUpForm = () => {
     try {
       // get the user authentication details
       const { user } = await createAuthUserWithEmailAndPassword(email, password)
+      // updates the context with signup      
       // create a user document with the authentication data; pass additional data
       await createUserDocumentFromAuth(user, { displayName });
 

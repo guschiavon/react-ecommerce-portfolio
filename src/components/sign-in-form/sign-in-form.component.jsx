@@ -5,10 +5,12 @@ import {
   signInUserWithEmailAndPassword
 } from '../../utils/firebase/firebase.utils'
 
-import './sign-in-form.styles.scss'
+
 
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
+
+import './sign-in-form.styles.scss'
 
 const defaultFormFields = {
   email: '',
@@ -42,7 +44,9 @@ const SignInForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {      
-      await signInUserWithEmailAndPassword(email, password);      
+      const { user } = await signInUserWithEmailAndPassword(email, password);      
+      // set the current logged in user using useContext
+      
       resetFormFields();
     } catch(err) {
      switch(err.code) {
@@ -54,6 +58,9 @@ const SignInForm = () => {
         break;
       case 'auth/invalid-email':
         alert('Invalid email format')
+        break;
+      case 'auth/invalid-login-credentials':
+        alert('Invalid credentials')
         break;
       default:
         console.log(err)
