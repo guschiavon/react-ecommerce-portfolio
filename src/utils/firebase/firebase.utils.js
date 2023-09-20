@@ -42,7 +42,7 @@ provider.getCustomParameters({
   prompt: 'select_account'
 });
 
-export const auth = getAuth(); // Doesn't receive parameters as only one auth is required
+export const auth = getAuth(firebaseApp); // Doesn't receive parameters as only one auth is required
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider); // can be used with multiple providers (Google, Facebook, Github, etc...)
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, provider)
 
@@ -63,7 +63,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
   // create a user snapshot to validate if exists already or not
   const userSnapshot = await getDoc(userDocRef);
   
-  // if user data doesnt exist
+  // if user data doesnt exist in the database
   // create / set document with the data from userAuth in my Firebase collection
   if (!userSnapshot.exists()) {
     // abstract user object values
@@ -100,12 +100,11 @@ export const signOutUser = async () => {
   await signOut(auth)  
   try {
     return
+    // eslint-disable-next-line
   } catch (err) {
     console.log(err.code);
   }
   return 
 }
 
-export const onAuthStateChangedListener = (callback) => {
-  return onAuthStateChanged(auth, callback)
-}
+export const onAuthStateChangedListener = (callback) =>  onAuthStateChanged(auth, callback);

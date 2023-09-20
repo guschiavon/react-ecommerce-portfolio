@@ -3,7 +3,7 @@ import {
   useState,
   useEffect
  } from "react"; 
-import { onAuthStateChangedListener } from "../utils/firebase/firebase.utils";
+import { onAuthStateChangedListener, createUserDocumentFromAuth } from "../utils/firebase/firebase.utils";
 
 
 // the actual value you want to access
@@ -13,17 +13,17 @@ export const UserContext = createContext({
   setCurrentUser: () => null
 })
 
-export const UserProvider = ({children}) => {
+export const UserProvider = ({ children }) => {
   // we access the data leveraging the useState() hook:
   const [currentUser, setCurrentUser] = useState(null);
   // instantiate a constant  with the state value 
   const value = { currentUser, setCurrentUser };
-  
+  // Centralizing authentication observer on the context
   // initialize the component and immediately check if there is a user authenticated (run once)
   useEffect(() => {
     // pass a callback to the authStateChanged method
     const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
+      if (user) {        
         createUserDocumentFromAuth(user)
       }
       setCurrentUser(user)

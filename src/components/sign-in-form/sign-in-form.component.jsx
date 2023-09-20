@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import {  
-  signInWithGooglePopup,  
-  createUserDocumentFromAuth,
+  signInWithGooglePopup,    
   signInUserWithEmailAndPassword
 } from '../../utils/firebase/firebase.utils'
 
@@ -43,7 +42,7 @@ const SignInForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {      
-      const { user } = await signInUserWithEmailAndPassword(email, password);      
+      await signInUserWithEmailAndPassword(email, password);      
       // set the current logged in user using useContext
       
       resetFormFields();
